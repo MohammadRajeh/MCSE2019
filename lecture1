@@ -1,0 +1,112 @@
+ PC1                                       www.google.com
+
+   - Sharing Resources
+
+    - Comunicate with other services
+    -------------------------------------------------------
+
+
+      - Physical Connection
+        HUB Brideg Repeater , Switch , Routers , AP
+
+      - Ip Addresses   ==> IPV4  PC1 192.168.1.10      PC2 192.168.2.10 
+                                     255.255.0.0         255.255.0.0 
+                                     255.255.255.0         255.255.255.0 
+
+
+               Brodcast Domain
+      - service
+       Web Mail DNS       TCP  UDP
+       Web Service Protocols HTTP HTTP/TLS==> HTTPS
+                            DNS 
+                           MAIL SMTP to send POP3  IMAP
+
+
+      - Aplications
+
+     OSI 7 Layers                     TCP/IP 4 Layers
+ ==========================================================
+
+    - Physical Layer
+    - Data link                              Datalink
+
+       MAC Address (Wire, Wireless , Fiber)
+
+        Serial Connectio PPP  PPPoE
+
+    --------------------------------
+    MAC 48-A4-72 -56-2E-CB   ==> 48bit
+    CAM Table
+  ==> A ==> 4 bit
+
+   - IPb Address IPV4 , IPV6
+
+
+        FE80 ==> Link Local IP
+  ===================================================
+
+      IPv4   32 bit 
+             Subnetmask 
+              192.168.0.0   255.255.255.0 
+              192.168.0.255 
+       192.168.0.0 ==> CIDR Subnet Network ID
+
+       192.168.0.255 ==> B.C IP
+
+                Unicast 
+                Broadcat
+                Multicast 224.0.0.0 ==> 239.255.255.255
+
+                
+               fe80::/10
+
+                FE80:0000:0000:0000:0000:0000:0000:0000
+                    64bit       Subnet            64bit Network Intefaces
+               FE80:0000:0000: 0000:   0000:0000:0000:0000
+                FE80::/10
+                FE80:0000:0000: 000d:   0000:0000:0000:0000
+                  FE80::d::/ X
+                  FE80:0:0:d::
+                          ::1
+                                           1 2 4 8
+                                        8  0 0 0 1
+                   4 4                  C  0 0 1 1
+                   F E                  4  0 0 1 0
+                                        0  0 0 0 0
+
+                  2000::/48  prefix
+                  2000:0000:0000:0000 ==> FFFF
+             
+==============================================
+ Private Range                           Public Range 
+  192.168.0.0==>192.168.255.255        
+  172.16.0.0 ==> 172.32.255.255 
+  10.0.0.0  ==> 10.255.255.255
+  127.0.0.0 ==>127.255.255.255   LocalHost 
+ 169.255.254.0 ==> 169.255.255.255 APIPA Range 
+
+
+    PCX ==> Google 
+
+
+          PC X==> Mac SRC  ===> Dst MAC GateWay MAC
+                  SRCIP: IP PCX ==> Dst IP Google IP
+
+                    GateWay MAC SRC  ===> Dst MAC A  Router
+
+           TCP Or UDP (Transport Layer )
+            Check Service 3 way handshake 
+         PCX                             Google
+              ---------------------------->
+                HTTP SYC
+              <------------------------------
+                 SYNC ACK   HTTP 
+               ------------------------------>
+                    ACK
+
+
+
+
+
+
+
