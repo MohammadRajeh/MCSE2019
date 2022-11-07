@@ -1,0 +1,70 @@
+Run Adsiedit.msc 
+"DC=" 
+ms-DS-MachineAccountQuota
+
+PowerShell Commands
+---------------------
+
+Get-LocalUser
+Get-LocalGroup
+$Password = Read-Host -AsSecureString
+New-LocalUser -Name Optimus -Description “Second Admin Account” -Password $Password
+
+Add-LocalGroupMember -Group “Administrators” -Member Optimus
+
+Add-LocalGroupMember -Group “Administrators” -Member “Contoso\Maximus”
+Add-LocalGroupMember -Group “Administrators” -Member “Contoso\ITOps”
+Remove-LocalGroupMember -Group “Administrators” -Member Optimus
+
+Domain Users
+=============================================
+
+New-ADUser 	–SamAccountName “username” 
+	    	–DisplayName “username” 
+            	–givenName “Username” 
+ 		–Surname “surname” 
+		–AccountPassword (ReadHost –AsSecureString “Message”) 
+		–Enabled $true –Path ‘CN=Users,DC=Doc,DC=Com’ 
+		-CannotChangePassword $false 
+		–ChangePasswordAtLogon $true 
+		–PasswordNeverExpires $false 
+		-EmailAddress “email” 
+		–EmployeeID “ID” 
+		–Department “string”
+
+Import-CSV d:\Share\testing.csv | New-ADUser
+
+
+Moving an AD user
+
+Move-ADObject -Identity "CN=testuser1,DC=Domain,DC=com" -TargetPath "OU=testOU,DC=Domain,DC=Com"
+Changing password
+
+Set-ADAccountPassword -Identity testuser -NewPassword new123 -OldPassword old123
+Unlocking AD account
+
+Unlock-ADAccount -Identity testuser
+Removing an AD user
+
+Remove-ADUser -Identity testuser
+
+
+
+Set-ADUser -Identity ChewDavid -HomePage 'http://fabrikam.com/employees/ChewDavid' -LogonWorkstations 'ChewDavid-DSKTOP,ChewDavid-LPTOP'
+
+
+Get-ADUser -Filter 'Name -like "*"' -SearchBase 'OU=HumanResources,OU=UserAccounts,DC=FABRIKAM,DC=COM' -Properties DisplayName | % {Set-ADUser $_ -DisplayName ($_.Surname + ' ' + $_.GivenName)}
+
+
+$User = Get-ADUser -Identity GlenJohn -Properties mail,department
+$User.mail = "glen@fabrikam.com"
+$User.department = "Accounting"
+Set-ADUser -Instance $User
+
+
+
+Get-ADUser -Identity "DavidChew" | Set-ADUser -Manager "ElisaDaugherty"
+
+
+
+
