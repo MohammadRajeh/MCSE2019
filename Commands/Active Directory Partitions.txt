@@ -1,0 +1,59 @@
+
+
+    Schema partition
+    Configuration partition
+    Domain partition
+    Application partition
+
+
+1. What is Active Directory Partitions?
+
+	In simple words a directory partition is where the AD information is segregated and 		logically stored.
+
+2. What is use Active Directory Partitions?
+
+	There are three native partitions Schema/Configuration/Domain and additionally there 	is also the Application partition.
+
+    - Schema information contains - definitional details about objects and attributes that one 	CAN store in the AD. Replicates to all domain controllers. Static in nature.
+
+    - Configuration information contains - configuration data about forest and trees. 				Replicates to all domain controllers. Static as your forest is.
+
+    - Domain information contains - object information for a domain. Replicates to all domain 			controllers within a domain. The object portion becomes part of Global 		Catalog.
+
+    - Application Partition contains - information about applications in Active Directory. 		E.g. when AD integrated DNS is used there are two application partitions for DNS zones 
+
+    – ForestDNSZones and DomainDNSZones.
+
+
+
+
+=====================================
+Active Directory FSMO roles in Windows
+=====================================
+
+ FSMO roles:
+
+    - Schema master
+    - Domain naming master
+    - RID master
+    - PDC emulator
+    - Infrastructure master
+
+
+	- Schema master
+		- regsvr32.exe schmmgmt.dll
+		- Click OK.
+		- Type MMC at the command prompt  and then press Enter to start a blank MMC 			console.
+		- In the MMC, on the File menu select Add/Remove Snap-in.
+		- From the available snap-ins, select the Active Directory Schema snap-in, 			click Add, and then click OK
+    		Initial replication and connectivity requirements
+
+    		This FSMO role holder is only active when the role owner has inbound 				replicated the schema     NC successfully since the Directory Service started.
+    		DCs and members of the forest only contact the FSMO role when they update the 			schema.
+
+	- RID Master 
+		-dcdiag /test:ridmanager /v to check availability
+		-RID Block Size Limit
+		-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\RID Values
+		-RID Block Size
+		-Dcdiag.exe /TEST:RidManager /v | find /i "Available RID Pool for the Domain"
