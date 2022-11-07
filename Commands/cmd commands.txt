@@ -1,0 +1,96 @@
+netsh 
+===================
+   netsh interface show           - Display information.
+C:\> netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=Yes
+C:\> netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=No
+netsh interface ip show config
+netsh interface ip set address name="Local Area Connection" source=static addr=192.168.0.10 mask=255.255.255.0 gateway=192.168.0.1 gwmetric=1
+Set a dynamic IP address with DHCP
+C:\> netsh interface ip set address name="Local Area Connection" source=dhcp
+
+Add multiple DNS servers:
+C:\> netsh interface ipv4 add dns "Local Area Connection" 10.0.0.1
+C:\> netsh interface ipv4 add dns "Local Area Connection" 10.0.0.3 index=2
+index=2 adds the IP as a secondary dns server.
+
+Set a static DNS server address:
+C:\> netsh interface ip set dns name="Local Area Connection" source=static addr=192.168.0.2 register=none
+
+Working with foreign locales: you cannot rely on the interface name being English e.g. in French the Local Area Network is called "Connexion au réseau local" (why yes that is unicode!) To display the different interfaces with their index numbers:
+C:\> netsh interface ip show interfaces
+Knowing the index number (the main/active interface tends to be 13.) we can set a static address/gateway using the index number:
+C:\> netsh interface ip set address 13 static 192.168.0.10 255.255.255.0 192.168.0.1 1
+
+Set a dynamic DNS server address with DHCP:
+C:\> netsh interface ip set dns name="Local Area Connection" source=dhcp
+
+Set a static address for the WINS server:
+C:\> netsh interface ip set wins name="Local Area Connection" source=static addr=192.168.100.3
+
+To configure WINS from DHCP:
+C:\> netsh interface ip set wins name="Local Area Connection" source=dhcp
+
+List general configuration state including DirectAccess and DNSSEC.
+C:\> netsh dns show state
+
+Disable IPv6 privacy extensions:
+C:\> netsh interface ipv6 set privacy state=disabled store=persistent (saved configuration)
+C:\> netsh interface ipv6 set privacy state=disabled store=active (running configuration)
+
+=========================================================================================
+NET.exe
+
+The NET Command is used to manage network resources as follows:
+
+    NET ACCOUNTS, USER, GROUP, LOCALGROUP - Logins & Security
+
+    NET COMPUTER, CONFIG_ - Network configuration (Workstation/Server)
+
+    NET FILE, SESSIONS - Manage open files and user sessions
+
+    NET HELP, HELPMSG - Help
+
+    NET PRINT - Manage Network Print jobs
+
+    NET TIME - Manage Network Time
+
+    NET START, STOP, PAUSE, CONTINUE - Manage Services
+
+File and printer sharing:
+
+    NET SHARE - Create file and printer shares
+
+    NET USE - Connect to a file/print Share (Drive Map)
+
+    NET VIEW - View file and printer shares
+
+
+      NET ACCOUNTS  [/FORCELOGOFF:{minutes | NO} ] [/MINPWLENGTH:length]
+             [/MAXPWAGE:{days | UNLIMITED}] [/MINPWAGE:days] [/UNIQUEPW:number] [/DOMAIN]
+
+      NET USER username {password | *} /ADD [options] [/DOMAIN]
+
+      NET USER [username [password | *] [options]] [/DOMAIN]
+
+      NET USER username [/DELETE] [/DOMAIN]
+
+      NET USER username [/TIMES:{times | ALL]
+
+      NET USER username [/ACTIVE: {YES | NO}]
+
+      Generate a random password:
+      NET USER username /random
+
+      NET GROUP groupname {/ADD [/COMMENT:"text"] | /DELETE} [/DOMAIN]
+      NET LOCALGROUP groupname {/ADD [/COMMENT:"text"] | /DELETE} [/DOMAIN]
+
+      Edit a group:
+      NET GROUP [groupname [/COMMENT:"text"]] [/DOMAIN]
+      NET LOCALGROUP [groupname [/COMMENT:"text"]] [/DOMAIN]
+
+      NET GROUP groupname Username [...] {/ADD | /DELETE} [/DOMAIN]
+      NET LOCALGROUP groupname Username [...] {/ADD | /DELETE} [/DOMAIN]
+
+      Delete a group:
+      NET GROUP groupname /DELETE [/DOMAIN]
+      NET LOCALGROUP groupname /DELETE [/DOMAIN]

@@ -1,0 +1,35 @@
+Create a Nano Server:
+
+1- Create a Directory
+2- Copy the "NanoServerImageGenerator" to that directory wich contains some power shell Scripts.
+3- Launch the power shell as an administrator and cd to the directory we have just created.
+
+PS C:\> cd .\NanoServerImageGenerator\
+PS C:\NanoServerImageGenerator> Import-Module .\NanoServerImageGenerator.psd1 -Verbose
+PS C:\NanoServerImageGenerator> $PWD= ConvertTo-SecureString -String "admin@1234" -AsPlainText -Force
+PS C:\NanoServerImageGenerator> New-NAnoServerImage -MediaPath D:\ -TargetPath .\nanofile.vhd -Edition Datacenter -DeploymentType Guest -ComputerName Nano-SRV -AdministratorPassword $PWD -EnableRemoteManagementPort -Defender -Package "Microsoft-NanoServer-DNS-Package"
+
+
+
+Where:
+- D:\ is the path of the DVD drive.
+- Any Package can be installed from the packages list folder in windows installation DVD.
+- The package name must be typeed without any extension.
+- A "nanofile.vhd" will be created under the "C:\NanoServerImageGenerator" folder.
+
+
+4- Create a new hyper-v machine using the created "nanofile.vhd" harddisk file.
+===============================================================================
+To remote manage the hyper-v machine using the host power shell:
+
+PS C:\windows\System32> Invoke-Command -VMName nano -credential $Creds -ScriptBlock {Get-Service }
+
+=================================================================================
+To enter the nano server machine using the host power shell:
+
+PS C:\Windows\System32> Enter-PSSession -VMName nano -Credential $creds
+[nano]: PS C:\User\administrator\Documents>
+[nano]: PS C:\User\administrator\Documents> Get-Process
+[nano]: PS C:\User\administrator\Documents>ipconfig
+[nano]: PS C:\User\administrator\Documents>hostname
+[nano]: PS C:\User\administrator\Documents>Exit-PSHostProcess  (to exit to the host)

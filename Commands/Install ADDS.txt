@@ -1,0 +1,45 @@
+Install Active Directory Domain Services using Windows PowerShell 
+1- Start Powershell
+2- Add-WindowsFeature AD-Domain-Services 
+2- Install-ADDSDomainController 
+-DomainName <string> [-SkipPreChecks] 
+-SafeModeAdministratorPassword <SecureString> 
+	[-ADPrepCredential <PS Credential>] 
+	[-AllowDomainControllerReinstall] 
+	[-ApplicationPartitionsToReplicate <string[]>] 
+	[-CreateDNSDelegation] 
+	[-Credential <PS Credential>] 
+	[-CriticalReplicationOnly] 
+	[-DatabasePath <string>] 
+	[-DNSDelegationCredential <PS Credential>] 
+	[-NoDNSOnNetwork] [-NoGlobalCatalog] 
+	[-InstallationMediaPath <string>] 
+	[-InstallDNS] [-LogPath <string>] 
+	[-MoveInfrastructureOperationMasterRoleIfNecessary] 
+	[-NoRebootOnCompletion] 
+	[-ReplicationSourceDC <string>] 
+	[-SiteName <string>] 
+	[-SkipAutoConfigureDNS] 
+	[-SystemKey <SecureString>] 
+	[-SYSVOLPath <string>] 
+	[-Force] 	
+	[-WhatIf] 
+	[-Confirm] 
+	[<CommonParameters>] 
+
+
+Install-ADDSDomainController 
+	-Credential (Get-Credential CORP\Administrator) 
+	-DomainName "corp.contoso.com"
+
+Install-ADDSDomainController 
+	-Credential (Get-Credential) 
+	-DomainName (Read-Host "Domain to promote into")
+Install-ADDSDomainController 
+	-Credential (Get-Credential CONTOSO\EnterpriseAdmin1) 
+	-CreateDNSDelegation -DomainName corp.contoso.com 
+	-SiteName Boston 
+	-InstallationMediaPath "c:\ADDS IFM" 
+	-DatabasePath "d:\NTDS" 
+	-SYSVOLPath "d:\SYSVOL" 
+	-LogPath "e:\Logs"

@@ -1,0 +1,5 @@
+ Get-NetAdapter             Get the basic network adapter properties.
+   Set-NetAdapter             Set the basic network adapter properties.
+
+  Get-NetIPAddress          Get IP address configuration.
+    Get-NetIPConfiguration    Get IP network configuration.
